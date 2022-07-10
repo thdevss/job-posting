@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             
-            $table->string('job_position');
+            $table->string('job_title');
             $table->integer('job_amount')->default(1);
 
             $table->string('company_name');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('job_salary');
             $table->string('job_province');
 
-            $table->string('job_gender');
+            $table->enum('job_gender', [ 'm', 'f' ] );
 
             $table->unsignedBigInteger('job_degree');
             $table->foreign('job_degree')->references('id')->on('job_degree');

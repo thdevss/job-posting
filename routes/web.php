@@ -18,8 +18,8 @@ Route::get('/', [JobController::class, 'index'])->name('job.index');
 
 
 Route::prefix('job')->name('job.')->group(function () {
-    Route::get('/type', [JobController::class, 'index'])->name('by_type');
-    Route::get('/degree', [JobController::class, 'index'])->name('by_degree');
+    Route::get('/type/{type?}', [JobController::class, 'view_by_job_type'])->name('by_type');
+    Route::get('/degree/{degree?}', [JobController::class, 'view_by_job_degree'])->name('by_degree');
 
     Route::get('/new', [JobController::class, 'index'])->name('new');
 

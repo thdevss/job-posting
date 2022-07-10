@@ -22,4 +22,13 @@ class Job extends Model
         });
     }
     
+    public function type()
+    {
+        return $this->hasOne(JobType::class, 'id', 'job_type');
+    }
+
+    public function degree()
+    {
+        return $this->hasOne(JobDegree::class, 'id', 'job_degree');
+    }
 }

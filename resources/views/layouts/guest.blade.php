@@ -35,12 +35,13 @@
                 </div>
                 <div id="mega-menu-icons" class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1">
                     <ul class="flex flex-col mt-4 text-sm font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                        <li>
+                        <!-- <li>
                             <a href="{{ route('job.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 lg:dark:hover:bg-transparent dark:border-gray-700">
                                 หางานใหม่ล่าสุด
                             </a>
                         </li>
-                        
+
+
                         <li>
                             <a href="{{ route('job.by_type') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 lg:dark:hover:bg-transparent dark:border-gray-700">
                                 หางานตามหมวดหมู่
@@ -51,8 +52,21 @@
                             <a href="{{ route('job.by_degree') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0 dark:text-gray-400 lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 lg:dark:hover:bg-transparent dark:border-gray-700">
                                 หางานตามวุฒิการศึกษา
                             </a>
-                        </li>
+                        </li> -->
 
+
+                        <x-header-link :href="route('job.index')" :active="request()->routeIs('job.index')">
+                            หางานใหม่ล่าสุด
+                        </x-header-link>
+                        
+                        <x-header-link :href="route('job.by_type')" :active="request()->routeIs('job.by_type*')">
+                            หางานตามหมวดหมู่
+                        </x-header-link>
+                        
+                        <x-header-link :href="route('job.by_degree')" :active="request()->routeIs('job.by_degree*')">
+                            หางานตามวุฒิการศึกษา
+                        </x-header-link>
+                        
                     </ul>
                 </div>
             </div>

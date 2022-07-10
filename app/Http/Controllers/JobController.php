@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Job;
+use \App\Models\JobType;
+use \App\Models\JobDegree;
 
 class JobController extends Controller
 {
@@ -14,12 +16,59 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::orderBy('created_at', 'desc')->paginate(10);
+        $jobs = Job::with(['type','degree'])->orderBy('created_at', 'desc')->paginate(10);
         // dd($jobs);
-        return view('pages.joblisting', [
-            'jobs' => $jobs
+        return view('pages.job.index', [
+            'jobs' => $jobs,
+            'title' => 'รายการงานล่าสุด'
         ]);
+    }
 
+    public function view_by_job_type(JobType $type)
+    {
+        $title_page = 'ค้นหางานตามประเภทของงาน';
+
+        if(!$type->id) {
+            $jobs = null;
+        } else {
+            $jobs = Job::with(['type','degree'])->where('job_type', $type->id)->orderBy('created_at', 'desc')->paginate(10);
+            $title_page .= ' - ค้นหาจากประเภท: '.$type->name;
+        }
+        // dd($type);
+        
+        return view('pages.job.search', [
+            'jobs' => $jobs,
+            'searchs' => JobType::orderBy('id', 'asc')->get(),
+            'current_search' => $type,
+            'title' => $title_page,
+            'search_type' => (object) [
+                'name' => 'type',
+                'url' => 'job.by_type'
+            ]
+        ]);
+    }
+
+    public function view_by_job_degree(JobDegree $degree)
+    {
+        $title_page = 'ค้นหางานตามวุฒิการศึกษา';
+
+        if(!$degree->id) {
+            $jobs = null;
+        } else {
+            $jobs = Job::with(['type','degree'])->where('job_degree', $degree->id)->orderBy('created_at', 'desc')->paginate(10);
+            $title_page .= ' - ค้นหาจากวุฒิ: '.$degree->name;
+        }
+        // dd($jobs);
+        return view('pages.job.search', [
+            'jobs' => $jobs,
+            'searchs' => JobDegree::orderBy('id', 'asc')->get(),
+            'current_search' => $degree,
+            'title' => $title_page,
+            'search_type' => (object) [
+                'name' => 'degree',
+                'url' => 'job.by_degree'
+            ]
+        ]);
     }
 
     /**

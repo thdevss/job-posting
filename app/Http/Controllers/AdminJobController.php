@@ -14,13 +14,20 @@ class AdminJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type = 'all')
     {
-        $jobs = Job::with(['type','degree'])->orderBy('created_at', 'desc')->paginate(10);
+        if($type == 'wait_approve') {
+            $jobs = Job::with(['type','degree'])->whereNull('approved_at')->orderBy('created_at', 'desc')->paginate(10);
+            $title = 'รายการงานรออนุมัติ';
+        } else {
+            $jobs = Job::with(['type','degree'])->whereNotNull('approved_at')->orderBy('created_at', 'desc')->paginate(10);
+            $title = 'รายการงานทั้งหมด';
+
+        }
         // dd($jobs);
         return view('pages.admin.job', [
             'jobs' => $jobs,
-            'title' => 'รายการงานล่าสุด'
+            'title' => $title
         ]);
     }
 

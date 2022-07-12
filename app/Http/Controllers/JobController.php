@@ -16,7 +16,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::with(['type','degree'])->orderBy('created_at', 'desc')->paginate(10);
+        $jobs = Job::with(['type','degree'])->whereNotNull('approved_at')->orderBy('created_at', 'desc')->paginate(10);
         // dd($jobs);
         return view('pages.job.index', [
             'jobs' => $jobs,
@@ -31,7 +31,7 @@ class JobController extends Controller
         if(!$type->id) {
             $jobs = null;
         } else {
-            $jobs = Job::with(['type','degree'])->where('job_type', $type->id)->orderBy('created_at', 'desc')->paginate(10);
+            $jobs = Job::with(['type','degree'])->whereNotNull('approved_at')->where('job_type', $type->id)->orderBy('created_at', 'desc')->paginate(10);
             $title_page .= ' - ค้นหาจากประเภท: '.$type->name;
         }
         // dd($type);
@@ -55,7 +55,7 @@ class JobController extends Controller
         if(!$degree->id) {
             $jobs = null;
         } else {
-            $jobs = Job::with(['type','degree'])->where('job_degree', $degree->id)->orderBy('created_at', 'desc')->paginate(10);
+            $jobs = Job::with(['type','degree'])->whereNotNull('approved_at')->where('job_degree', $degree->id)->orderBy('created_at', 'desc')->paginate(10);
             $title_page .= ' - ค้นหาจากวุฒิ: '.$degree->name;
         }
         // dd($jobs);
@@ -101,11 +101,13 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
-        // dd($job);
+        if(!isset($job->approved_at)) {
+            return abort(403);
+        }
+
         return view('pages.job.detail', [
             'job' => $job,
-            'related_job' => Job::with(['type','degree'])->where('id', '!=', $job->id)->where('job_degree', $job->job_degree)->where('job_type', $job->job_type)->limit(5)->paginate(5),
+            'related_job' => Job::with(['type','degree'])->whereNotNull('approved_at')->where('id', '!=', $job->id)->where('job_degree', $job->job_degree)->where('job_type', $job->job_type)->limit(5)->paginate(5),
         ]);
     }
 

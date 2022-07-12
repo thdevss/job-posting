@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')
     })->name('dashboard');
 
 
-    Route::get('/job', [AdminJobController::class, 'index'])->name('job');
+    Route::get('/job/{type?}', [AdminJobController::class, 'index'])->name('job');
     Route::get('/job/{job}', [AdminJobController::class, 'show'])->name('job.show');
     Route::put('/job/{job}', [AdminJobController::class, 'update'])->name('job.update');
     Route::delete('/job/{manga}', [AdminJobController::class, 'destroy'])->name('job.destroy');

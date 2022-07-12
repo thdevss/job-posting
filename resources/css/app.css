@@ -5,3 +5,7 @@
 nav p.text-sm {
     color: #fff;
 }
+
+.nav-admin nav p.text-sm {
+    color: #000;
+}

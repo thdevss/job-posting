@@ -79,6 +79,7 @@ class JobController extends Controller
     public function create()
     {
         //
+        echo '-- form add coming soon..';
     }
 
     /**

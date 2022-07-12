@@ -101,7 +101,11 @@ class JobController extends Controller
     public function show(Job $job)
     {
         //
-        dd($job);
+        // dd($job);
+        return view('pages.job.detail', [
+            'job' => $job,
+            'related_job' => Job::with(['type','degree'])->where('id', '!=', $job->id)->where('job_degree', $job->job_degree)->where('job_type', $job->job_type)->limit(5)->paginate(5),
+        ]);
     }
 
     /**

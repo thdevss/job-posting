@@ -7,6 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (Session::has('message'))
+
+                <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <span class="font-medium">{{ Session::get('message') }}</span>
+                </div>
+            @endif
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
@@ -59,7 +65,13 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 @if(is_null($job->approved_at))
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve?</a> <br />
+                                    <form action="{{ route('admin.job.update', $job) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="action" value="approve_job" />
+                                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve?</button> <br />
+                                    </form>
+                                
                                 @endif
                                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> | 
                                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>

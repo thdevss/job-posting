@@ -73,6 +73,15 @@ class AdminJobController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if($request->action === 'approve_job') {
+            $job = Job::find($id);
+            $job->approved_at = date('Y-m-d H:i:s');
+            $job->save();
+            return redirect()->back()->with('message', 'Approved Succeed');
+        } else {
+            // update something
+        }
+        
     }
 
     /**

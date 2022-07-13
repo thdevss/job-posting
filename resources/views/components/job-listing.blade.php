@@ -33,7 +33,7 @@
 
                         <div class="text-sm font-thin leading-relaxed">
                             <p>วุฒิการศึกษา: {{ $job->degree->name }}</p>
-                            <p>เงินเดือน: {{ number_format($job->job_salary, 0) }}</p>
+                            <p>เงินเดือน: {{ (is_numeric($job->job_salary)) ? number_format($job->job_salary, 0) : $job->job_salary }}</p>
                             <p>สถานที่ทำงาน: {{ $job->job_province }}</p>
                         </div>
                         

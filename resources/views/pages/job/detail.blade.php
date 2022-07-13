@@ -26,7 +26,7 @@
                                     สถานที่ปฏิบัติงาน: <span class="font-bold">{{ $job->job_province }}</span>
                                 </li>
                                 <li>
-                                    เงินเดือน: <span class="font-bold">{{ number_format($job->job_salary, 0) }}</span>
+                                    เงินเดือน: <span class="font-bold">{{ (is_numeric($job->job_salary)) ? number_format($job->job_salary, 0) : $job->job_salary }}</span>
                                 </li>
                                 <li>
                                     รายละเอียดงานโดยย่อ:<br /><span class="font-bold">{{ $job->job_description }}</span>
@@ -75,10 +75,10 @@
 
     <div class="py-12 m-2">
         
-        <h3 class="mb-3 text-xl font-medium text-gray-900 dark:text-white">งานอื่น ๆ ที่คุณอาจสนใจ</h3>
-        @isset($related_job)
+        @if(count($related_job) > 0)
+            <h3 class="mb-3 text-xl font-medium text-gray-900 dark:text-white">งานอื่น ๆ ที่คุณอาจสนใจ</h3>
             <x-job-listing :jobs="$related_job"/>
-        @endisset
+        @endif
     
     </div>
 </x-guest-layout>

@@ -31,6 +31,11 @@ class AdminJobController extends Controller
         ]);
     }
 
+    public function wait_approve()
+    {
+        return $this->index('wait_approve');
+    }
+
     /**
      * Display the specified resource.
      *

@@ -21,7 +21,7 @@ class JobFactory extends Factory
             // 'id' => $this->faker->uuid,
             'job_type' => rand(1, 7),
             'job_degree' => rand(1, 5),
-            'job_gender' => $this->faker->randomElement(['m', 'f']),
+            'job_gender' => $this->faker->randomElement(['m', 'f', 'a']),
             'job_title' => $this->faker->jobTitle,
             'company_name' => $this->faker->company,
             'job_amount' => rand(1, 10),
@@ -29,7 +29,10 @@ class JobFactory extends Factory
             'job_province' => $this->faker->city,
             'telephone_number' => $this->faker->phoneNumber,
             'job_salary' => $this->faker->numberBetween(8000, 40000),
-            'job_description' => $this->faker->realText
+            'job_description' => $this->faker->realText,
+            'user_ipaddr' => $this->faker->ipv4,
+            'user_agent' => $this->faker->userAgent,
+
         ];
     }
 }

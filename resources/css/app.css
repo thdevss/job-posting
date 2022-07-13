@@ -9,3 +9,7 @@ nav p.text-sm {
 .nav-admin nav p.text-sm {
     color: #000;
 }
+
+ol.rules {
+    margin-left: 2rem;
+}

@@ -15,8 +15,11 @@
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.job')" :active="request()->routeIs('admin.job*')">
-                        {{ __('Jobs') }}
+                    <x-nav-link :href="route('admin.job.index')" :active="request()->routeIs('admin.job.index')">
+                        {{ __('รายการงานทั้งหมด') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.job.wait_approve')" :active="request()->routeIs('admin.job.wait_approve')">
+                        {{ __('รายการงานรออนุมัติ') }}
                     </x-nav-link>
                 </div>
             </div>

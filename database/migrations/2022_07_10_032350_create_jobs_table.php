@@ -36,6 +36,10 @@ return new class extends Migration
 
             $table->string('job_description');
 
+            $table->string('user_ipaddr');
+            $table->string('user_agent');
+
+
             $table->dateTime('approved_at')->nullable();
             $table->dateTime('expired_at')->nullable();
 

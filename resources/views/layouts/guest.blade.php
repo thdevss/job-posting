@@ -23,7 +23,7 @@
                 </a>
                 <div class="flex items-center lg:order-2">
 
-                    <a href="{{ route('job.new') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <a href="{{ route('job.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                         เพิ่มประกาศงานใหม่
                     </a>
 
@@ -74,8 +74,9 @@
 
 
         <div class="font-sans text-gray-900 antialiased container mx-auto">
-        
             {{ $slot }}
         </div>
+
+        @stack('scripts')
     </body>
 </html>

@@ -79,7 +79,10 @@ class JobController extends Controller
     public function create()
     {
         //
-        echo '-- form add coming soon..';
+        return view('pages.job.form', [
+            'degrees' => JobDegree::all(),
+            'types' => JobType::all()
+        ]);
     }
 
     /**
@@ -91,6 +94,35 @@ class JobController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'job_title' => 'required|string|max:255',
+            'job_salary' => 'required|string|max:255',
+            'job_description' => 'required',
+            'job_type' => 'required',
+            'job_degree' => 'required',
+            'company_name' => 'required',
+            'job_amount' => 'required',
+            'company_address' => 'required',
+            'job_province' => 'required',
+            'telephone_number' => 'required'
+        ]);
+        
+        Job::create([
+            'job_title' => $request->job_title,
+            'job_salary' => $request->job_salary,
+            'job_description' => $request->job_description,
+            'job_type' => $request->job_type,
+            'job_degree' => $request->job_degree,
+            'company_name' => $request->company_name,
+            'job_amount' => $request->job_amount,
+            'company_address' => $request->company_address,
+            'job_province' => $request->job_province,
+            'telephone_number' => $request->telephone_number,
+            'user_ipaddr' => $request->ip(),
+            'user_agent' => $request->header('User-Agent')
+        ]);
+
+        return redirect()->route('job.create')->with('message', 'Post Created Successfully, Please wait approved from staff within 2-3 days.');
     }
 
     /**

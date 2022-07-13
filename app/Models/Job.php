@@ -12,6 +12,24 @@ class Job extends Model
 
     public $incrementing = false;
 
+    public $fillable = [
+        'job_type',
+        'job_degree',
+        'job_gender',
+        'job_title',
+        'company_name',
+        'job_amount',
+        'company_address',
+        'job_province',
+        'telephone_number',
+        'job_salary',
+        'job_description',
+        'expired_at',
+        'approved_at',
+        'user_ipaddr',
+        'user_agent'
+    ];
+
     protected static function boot()
     {
         parent::boot();

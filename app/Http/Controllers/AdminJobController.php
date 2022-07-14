@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use \App\Models\Job;
 use \App\Models\JobType;
 use \App\Models\JobDegree;
+use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
 
 class AdminJobController extends Controller
 {
@@ -27,7 +29,8 @@ class AdminJobController extends Controller
         // dd($jobs);
         return view('pages.admin.job', [
             'jobs' => $jobs,
-            'title' => $title
+            'title' => $title,
+            'type' => $type
         ]);
     }
 
@@ -84,14 +87,45 @@ class AdminJobController extends Controller
         
     }
 
+    public function bulk_update(Request $request)
+    {
+        $validated = request()->validate([
+            'job.*.id' => ['required', Rule::exists('jobs', 'id')],
+            'action' => ['required']
+        ]);
+    
+        $input = Collection::make($validated['job']);
+        $action = $request->action;
+
+        Job::query()->whereKey($input->pluck('id'))
+            ->each(function (Job $job) use ($input, $action) {
+
+                if($action === 'approve_job') {
+                    $job->approved_at = date('Y-m-d H:i:s');
+                    $job->save();
+                } else if ($action === 'delete') {
+                    $job->delete();
+                }
+
+            });
+
+        $alert_message = 'Approved (selected) Succeed';
+        if($action === 'delete') {
+            $alert_message = 'Deleted (selected) Succeed';
+        }
+        return redirect()->back()->with('message', $alert_message);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
         //
+        $job->delete();
+        return redirect()->back()->with('message', 'Deleted (selected) Succeed');
     }
 }

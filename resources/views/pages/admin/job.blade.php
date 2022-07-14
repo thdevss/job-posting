@@ -26,11 +26,7 @@
                     ลบโพสงานที่เลือก
                 </a>
 
-                @if ($type == 'wait_approve')
-                    <a href="{{ route('job.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        อนุมัติโพสงานทั้งหมดที่ยังไม่ถูกอนุมัติ
-                    </a>
-                @endif
+
             </div>
             
 
@@ -94,8 +90,13 @@
                                     </form>
                                 
                                 @endif
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> | 
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+
+                                <a href="{{ route('admin.job.show', $job) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> | 
+                                <form style="display:inline;" action="{{ route('admin.job.destroy', $job) }}" method="POST" onsubmit="return confirm_action();">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                </form>
 
                             </td>
                         </tr>

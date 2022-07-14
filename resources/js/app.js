@@ -7,6 +7,9 @@ window.Alpine = Alpine;
 Alpine.start();
 
 
+window.confirm_action = function() {
+    return confirm('are you sure for doing that?')
+}
 
 document.getElementById('checkbox-job-all').onclick = function() {
     var checkboxes = document.querySelectorAll('.checkbox-job');
@@ -17,16 +20,26 @@ document.getElementById('checkbox-job-all').onclick = function() {
 
 
 document.getElementById('approve-all-job').onclick = function() {
-    bulk_update_job('approve_job')
+    if(confirm_action()) {
+        bulk_update_job('approve_job')
+    }
 }
 
 document.getElementById('delete-all-job').onclick = function() {
-    bulk_update_job('delete')
+    if(confirm_action()) {
+        bulk_update_job('delete')
+    }
 }
 
 // window. = function() {
 function bulk_update_job(action) {
-    var checkboxes = document.querySelectorAll('.checkbox-job');
+    // check before process
+    var checkboxes = document.querySelectorAll('.checkbox-job:checked');
+    if(checkboxes.length < 1) {
+        alert('please select some job before doing action')
+        return;
+    }
+    
 
     var hiddenForm = document.createElement('form');
     hiddenForm.setAttribute('action', document.getElementById('bulk-update-url').value);

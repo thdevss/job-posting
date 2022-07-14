@@ -14,7 +14,7 @@
                         <div class="flex flex-row items-center">
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">งานรออนุมัติ</h5>
-                                <h3 class="font-bold text-3xl mt-2">101</h3>
+                                <h3 class="font-bold text-3xl mt-2">{{ number_format($stats['job']['wait_approve'], 0) }}</h3>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="flex flex-row items-center">
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">งานใหม่วันนี้</h5>
-                                <h3 class="font-bold text-3xl mt-2">1</h3>
+                                <h3 class="font-bold text-3xl mt-2">{{ number_format($stats['job']['in_today'], 0) }}</h3>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <div class="flex flex-row items-center">
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">งานทั้งหมดในระบบ</h5>
-                                <h3 class="font-bold text-3xl mt-2">0</h3>
+                                <h3 class="font-bold text-3xl mt-2">{{ number_format($stats['job']['total'], 0) }}</h3>
                             </div>
                         </div>
                     </div>

@@ -11,27 +11,53 @@ window.confirm_action = function() {
     return confirm('are you sure for doing that?')
 }
 
-document.getElementById('checkbox-job-all').onclick = function() {
-    var checkboxes = document.querySelectorAll('.checkbox-job');
-    for (var checkbox of checkboxes) {
-        checkbox.checked = this.checked;
+window.onload = function() {
+    if(document.getElementById('nav-count-wa-job')) {
+        // ajax update
+        var request = new XMLHttpRequest();
+            request.open('GET', '../../../admin/job/wait_approve/count', true);
+
+            request.onload = function() {
+                if (this.status >= 200 && this.status < 400) {
+                    // Success!
+                    var data = JSON.parse(this.response);
+                    if(data.payload.count > 0) {
+                        document.getElementById('nav-count-wa-job').innerText = data.payload.count
+                        document.getElementById('nav-count-wa-job').classList.remove('hidden')
+                    }
+                }
+            };
+            request.send();
+
+        
     }
 }
 
-
-document.getElementById('approve-all-job').onclick = function() {
-    if(confirm_action()) {
-        bulk_update_job('approve_job')
+if(document.getElementById('checkbox-job-all')) {
+    document.getElementById('checkbox-job-all').onclick = function() {
+        var checkboxes = document.querySelectorAll('.checkbox-job');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
     }
 }
 
-document.getElementById('delete-all-job').onclick = function() {
-    if(confirm_action()) {
-        bulk_update_job('delete')
+if(document.getElementById('approve-all-job')) {
+    document.getElementById('approve-all-job').onclick = function() {
+        if(confirm_action()) {
+            bulk_update_job('approve_job')
+        }
     }
 }
 
-// window. = function() {
+if(document.getElementById('delete-all-job')) {
+    document.getElementById('delete-all-job').onclick = function() {
+        if(confirm_action()) {
+            bulk_update_job('delete')
+        }
+    }
+}
+
 function bulk_update_job(action) {
     // check before process
     var checkboxes = document.querySelectorAll('.checkbox-job:checked');

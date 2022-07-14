@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\JobController;
 use \App\Http\Controllers\AdminJobController;
+use \App\Http\Controllers\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,23 +34,23 @@ Route::prefix('job')->name('job.')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-
-    Route::get('/', function () {
-        return view('pages.admin.dashboard');
-    })->name('dashboard');
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
 
     // Route::get('/job/{type?}', [AdminJobController::class, 'index'])->name('job');
     Route::get('/job', [AdminJobController::class, 'index'])->name('job.index');
     Route::get('/job/wait_approve', [AdminJobController::class, 'wait_approve'])->name('job.wait_approve');
     Route::put('/job/bulk_update', [AdminJobController::class, 'bulk_update'])->name('job.bulk_update');
-
+    Route::get('/job/wait_approve/count', [AdminJobController::class, 'ajax_count_wait_approve']);
+    
     Route::get('/job/{job}', [AdminJobController::class, 'show'])->name('job.show');
     Route::put('/job/{job}', [AdminJobController::class, 'update'])->name('job.update');
 
     Route::delete('/job/{job}', [AdminJobController::class, 'destroy'])->name('job.destroy');
 
+    
 
+    
     // other admin routes here
 });
 

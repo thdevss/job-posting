@@ -20,6 +20,7 @@
                     </x-nav-link>
                     <x-nav-link :href="route('admin.job.wait_approve')" :active="request()->routeIs('admin.job.wait_approve')">
                         {{ __('รายการงานรออนุมัติ') }}
+                        <span id="nav-count-wa-job" class="ml-2 bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900 hidden"></span>
                     </x-nav-link>
                 </div>
             </div>

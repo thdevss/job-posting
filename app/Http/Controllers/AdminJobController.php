@@ -39,6 +39,16 @@ class AdminJobController extends Controller
         return $this->index('wait_approve');
     }
 
+    public function ajax_count_wait_approve()
+    {
+        return [
+            'payload' => [
+                'count' => Job::whereNull('approved_at')->count()
+            ]
+        ];
+    }
+
+
     /**
      * Display the specified resource.
      *
